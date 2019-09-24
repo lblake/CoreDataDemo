@@ -19,8 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow()
         window?.makeKeyAndVisible()
         
+        //Name the controller after what function it will be performing
         let companiesController = ViewController()
         
+        //Use the custom navigation controller
         let navController = CustomNavgationController(rootViewController: companiesController)
         window?.rootViewController = navController
         
