@@ -8,7 +8,15 @@
 
 import UIKit
 
-class ViewController: UITableViewController {
+class CompaniesController: UITableViewController {
+    
+    let companies = [
+        Company(name: "Apple", founded: Date()),
+        Company(name: "Google", founded: Date()),
+        Company(name: "Facebook", founded: Date())
+    ]
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,9 +24,12 @@ class ViewController: UITableViewController {
         //Set the background colour of the main navigation controller
         view.backgroundColor = .white
         
-        navigationItem.title = "Companies"
+        self.navigationItem.title = "Companies"
+        
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "plus"), style: .plain, target: self, action: #selector(handleAddCompany))
+        
+        
         
         
         //tableView.separatorStyle = .none
@@ -27,17 +38,24 @@ class ViewController: UITableViewController {
         
         tableView.tableFooterView = UIView()
         
-        //
+        
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
         
         tableView.backgroundColor = .darkBlue
         
-        setupNavigationStyle()
+        //setupNavigationStyle()
     }
 
     @objc func handleAddCompany(){
         
-        print("Hello")
+       let createCompanyController = CreateCompanyController()
+        
+        createCompanyController.view.backgroundColor = .darkBlue
+        
+        let navController = CustomNavgationController(rootViewController: createCompanyController)
+        
+        present(navController, animated: true, completion: nil)
+        
         
     }
     
@@ -61,7 +79,8 @@ class ViewController: UITableViewController {
         
         cell.backgroundColor = .tealColour
         
-        cell.textLabel?.text = "The Company Name"
+        let company = companies[indexPath.row]
+        cell.textLabel?.text = company.name
         cell.textLabel?.textColor = .white
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         
@@ -70,7 +89,7 @@ class ViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 8
+        return  companies.count
     }
     
     
@@ -78,7 +97,7 @@ class ViewController: UITableViewController {
     
     
     
-    func setupNavigationStyle() {
+    /*func setupNavigationStyle() {
         
         
         navigationController?.navigationBar.isTranslucent = false
@@ -88,7 +107,7 @@ class ViewController: UITableViewController {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         
-    }
+    }*/
     
 }
 
